@@ -7,7 +7,7 @@ module.exports = function(app) {
 
     // chat area
     app.get('/chat', function(req, res) {
-        res.render('chat', { title: 'Chat with Me!  ' })
+        res.render('chat', { title: 'VoteLog' })
     });
 
     // about page

@@ -1,12 +1,18 @@
 
+block stylesheets
+  link(rel='stylesheet', href=base + '/stylesheets/site.css')
+  link(rel='stylesheet', href='/stylesheets/avgrund.css')
+
 block javascripts
  script(src='/socket.io/socket.io.js')
  script(src='http://code.jquery.com/ui/1.10.3/jquery-ui.js')
+ script(src='/javascripts/jquery.avgrund.js')
  script(src='/javascripts/site.js')
 
 
 
-div( id="Wrap") 
-    div(id="listWrap")
-        h1 Section Heading
+section(class="main-vote-content")
+    div( id="Wrap") 
+        div(id="listWrap")
             div( id="list")
+    div(id="announce")

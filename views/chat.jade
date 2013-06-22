@@ -8,13 +8,17 @@ block javascripts
  script(src='/socket.io/socket.io.js')
  script(src='/javascripts/chat.js')
 
+
 section(class="main-content")
   h3= title
 
-  #chat
+  div(id="chatWrap")
+    div(id="chat")
+    div(id="sendDiv")
+        input(type="text", id="message")
+        input(type="button", value="send", id="send")
 
-  div
-    input(type="text", id="message")
-    input(type="button", value="send", id="send")
+  div(class="users-online")
+    ul(id="users-online")
 
   

@@ -2,14 +2,14 @@ var socket = null;
 
 $(function() {
 
-  var name = prompt('what is your name?', 'WebMatrix User') || 'WebMatrix User';
+  var name = prompt('what is your name?', 'User') || 'User';
   //var name = 'WebMatrix User';
 
   socket = io.connect();
   
   socket.on('connect', function () {
     socket.emit('setname', name);
-    $("#chat").append($("<div class=\"system\">you have joined the party</div>"));
+    $("#chat").append($("<div class=\"system\">you have connected</div>"));
   });
 
 
