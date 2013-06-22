@@ -1,0 +1,72 @@
+.background{
+/* IE10 Consumer Preview */ 
+background-image: -ms-linear-gradient(top, #4D3C3C 0%, #0B0B0D 100%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(top, #4D3C3C 0%, #0B0B0D 100%);
+
+/* Opera */ 
+background-image: -o-linear-gradient(top, #4D3C3C 0%, #0B0B0D 100%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #4D3C3C), color-stop(1, #0B0B0D));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(top, #4D3C3C 0%, #0B0B0D 100%);
+
+/* W3C Markup, IE10 Release Preview */ 
+background-image: linear-gradient(to bottom, #4D3C3C 0%, #0B0B0D 100%);
+}
+#listWrap{
+        margin-left: auto;
+    margin-right:auto;
+   
+}
+#Wrap{
+        margin-left: auto;
+    margin-right:auto;
+   width: 85%;
+}
+
+#list { list-style-type: none; margin: 0; padding: 0; width: auto;
+ box-shadow: 10px 10px 5px #888888; }
+
+#list div {
+             margin: 35px 13px 0px 13px;
+             padding: 1px;
+             float: left;
+             width: 330px;
+             height: 100%;
+             font-size: 4em;
+             text-align: center;
+             border: 1px solid black;
+            
+}
+  
+  button.punch {
+  background-image: url('http://img.booru.org/steambanners//images/5/4a66ab78bbcb79c07239dac0fa1a51f093837325.jpg');
+  background-size: cover;
+  border-top: 1px solid #38538c;
+  border-right: 1px solid #1f2d4d;
+  border-bottom: 1px solid #151e33;
+  border-left: 1px solid #1f2d4d;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 10px 1px #5c8bee, 0px 1px 0 #1d2c4d, 0 6px 0px #1f3053, 0 8px 4px 1px #111111;
+  box-shadow: inset 0 1px 10px 1px #5c8bee, 0px 1px 0 #1d2c4d, 0 6px 0px #1f3053, 0 8px 4px 1px #111111;
+  color: #fff;
+  font: bold 20px/1 "helvetica neue", helvetica, arial, sans-serif;
+  margin-bottom: 10px;
+  padding: 10px 0 12px 0;
+  text-align: center;
+  text-shadow: 0px -1px 1px #1e2d4d;
+  height:115px;
+  width: 100%;
+  -webkit-background-clip: padding-box; }
+  button.punch:hover {
+    -webkit-box-shadow: inset 0 0px 20px 1px #87adff, 0px 1px 0 #1d2c4d, 0 6px 0px #1f3053, 0 8px 4px 1px #111111;
+    box-shadow: inset 0 0px 20px 1px #87adff, 0px 1px 0 #1d2c4d, 0 6px 0px #1f3053, 0 8px 4px 1px #111111;
+    cursor: pointer; }
+  button.punch:active {
+    -webkit-box-shadow: inset 0 1px 10px 1px #5c8bee, 0 1px 0 #1d2c4d, 0 2px 0 #1f3053, 0 4px 3px 0 #111111;
+    box-shadow: inset 0 1px 10px 1px #5c8bee, 0 1px 0 #1d2c4d, 0 2px 0 #1f3053, 0 4px 3px 0 #111111;
+    margin-top: 8px; }
