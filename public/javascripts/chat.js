@@ -2,32 +2,20 @@ var socket = null;
 
 $(function() {
 
-  var name = prompt('what is your name?', 'User') || 'User';
-  //var name = 'WebMatrix User';
+  var name = 'WebMatrix User';
 
   socket = io.connect();
   
   socket.on('connect', function () {
-    socket.emit('setname', name);
+
+
     $("#chat").append($("<div class=\"system\">you have connected</div>"));
   });
-
-
   socket.on('announcement', function(data) {
     $("#chat").append($("<div class=\"system\">announce:" + data.announcement.id + "</div>"));
   });
 
-  socket.on('message', function (data) {
-    $("#chat").append($("<div><span class=\"user\">" + data.message[0] + ":&nbsp;</span>" + data.message[1] + "</div>"));
-  });	
-
-  socket.on('messages', function (data) {
-  	for (var i=0; i<data.buffer.length; i++) {
-    	$("#chat").append($("<div><span class=\"user\">" + data.buffer[i].message[0] + ":&nbsp;</span>" + data.buffer[i].message[1] + "</div>"));
-    } 
-  });
-
-  socket.on('votecast', function (data){
+socket.on('votecast', function (data){
        $("#chat").append($("<div><span class=\"user\"> votecast: " + data.id +  ":&nbsp;</span></div>"));
   });
 

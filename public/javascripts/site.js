@@ -1,34 +1,15 @@
  var socket = null;
-
+ var uname = null;
  $(function () {
-
-     var name = prompt('what is your name?', 'Cody') || 'Cody';
-     //var name = 'WebMatrix User';
-
+      uname = prompt('what is your name?', 'Cody') || 'NoneChosen';
      socket = io.connect();
 
      socket.on('connect', function () {
          socket.emit('setname', name);
      });
      socket.on('announcement', function (data) {
-         showAlert(data);
+     //    showAlert(data);
      });
-
-     socket.on('message', function (data) {
-         //    $("#chat").append($("<div><span class=\"user\">" + data.message[0] + ":&nbsp;</span>" + data.message[1] + "</div>"));
-     });
-
-     socket.on('messages', function (data) {
-         //	for (var i=0; i<data.buffer.length; i++) {
-         //  	$("#chat").append($("<div><span class=\"user\">" + data.buffer[i].message[0] + ":&nbsp;</span>" + data.buffer[i].message[1] + "</div>"));
-         //  } 
-     });
-
-     $("button").click(function (e) {
-         e.preventDefault();
-         sendVote(this);
-     });
-
  })
 function showAlert(data){
 
@@ -46,22 +27,26 @@ function showAlert(data){
 
 		$('#announce').click();
 }
-function sendVote(btn) {
+function sendVote(btn, user) {
   var msg = $(btn);
  // $("#chat").append($("<div><span class=\"user-me\">me:&nbsp;</span>" + msg + "</div>"));
  // $("#message").val('');
-  socket.emit('votecast', { id: msg.attr('id')});
+  var loc = window.location;
+  var pathName = loc.pathname;
+  socket.emit('votecast', { });
+  $.post(pathName , { name: msg.attr('id'), user: user });
 }
  
  
  $(document).ready(function(){
+     //var name = 'WebMatrix User';
     var title = "Incoming Vote";
    var items = [];
    var data = JSON.stringify(getJSON());
    var obj = $.parseJSON(data);
    $.each(obj, function(name, item) {
-          items.push('<div id="li_'+name+'"><button id="btn_'+name+'" style="background-image: url('+item.icon+')"  onclick=sendVote(this) class="punch"></button></div>');
-        $('#li_'+ name + ' button').css('background-image','url('+name+')');
+          items.push('<div id="li_'+name+'"><button id="btn_'+name+'" style="background-image: url('+item.icon+')"  onclick="sendVote(this, \''+uname+'\')" class="punch"></button></div>');
+      //  $('#li_'+ name + ' button').css('background-image','url('+name+')');
    });
 
    $('#list').append( items.join('') );
