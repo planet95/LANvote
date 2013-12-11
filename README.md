@@ -1,4 +1,3 @@
-LANvote
-=======
+﻿# NodejsApp1
 
-a node based voting system for a future lan party
+

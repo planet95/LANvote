@@ -1,56 +1,94 @@
-var express = require('express')
-  , less = require('less')
-  , connect = require('connect')
-  , everyauth = require('everyauth'),
-   nconf = require('nconf');
+var express = require('express.io'),swig = require('swig'),connect = require('connect'), nano = require('nano')('https://planet95:C0d4e33@planet95.cloudant.com/');
+var app = express().http().io();
 
-   var config = require('./config');
-   console.log(config);
-   console.log(config.user);
-   console.log(config.pass);
-   var nano    = require('nano')('http://'+config.user+':'+config.pass+'@planet95.cloudant.com/ztlanvotes');
-
-var app = module.exports = express.createServer();
 
 app.configure(function() {
-    app.set('views', __dirname + '/views');
-    app.set('view engine', 'jade');
-    app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(require('./middleware/locals'));
-    app.use(express.cookieParser());
-    app.use(express.session({ secret: 'azure zomg' }));
-    app.use(express.compiler({ src: __dirname + '/public', enable: ['less'] }));
+    app.engine('html', swig.renderFile);
+    app.use('/public',express.static(__dirname + '/public'));
+    //public is now root folder in all app.
     app.use(connect.static(__dirname + '/public'));
-    app.use(app.router);
+    app.use(express.methodOverride());
+    app.use(express.cookieParser())
+    app.set('view engine', 'html');
+    app.set('views', __dirname + '/views');
+    app.use(express.session({secret: 'poopsex'}));
+ 
+  });
+
+app.io.configure( function(){
+  app.io.set("transports", ["xhr-polling"]);
+  app.io.set("polling duration", 10);
+  app.io.set('log level', 2);
 });
 
-var errorOptions = { dumpExceptions: false, showStack: true }
-app.configure('development', function() { });
-app.configure('production', function() {
-    errorOptions = {};
-});
-app.use(require('./middleware/errorHandler')(errorOptions));
-
-
-var io = require('socket.io').listen(app);
-
-io.configure( function(){
-  io.set("transports", ["xhr-polling"]);
-  io.set("polling duration", 10);
-  io.set('log level', 2);
-});
-
-io.sockets.on('connection', function (socket) {
-    console.log('<---This Guy. New Person connected.' + socket);
-    socket.on('event', function(event) {
+app.io.sockets.on('connection', function (socket) {
+     socket.on('event', function(event) {
         socket.join(event);
     });
+    console.log(socket.id + '<---This Guy. New Person connected.' );
 });
-require('./routes/index')(app, io, nano);
-// Global Routes - this should be last!
-require('./routes/global')(app);
 
-everyauth.helpExpress(app);
-app.listen(process.env.PORT || 3000);
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+app.io.route('ready', function(req){  
+   // req.session.name = req.data;
+    req.io.emit('name',{name:req.data});
+
+    });
+app.io.route('rtrvdata', function(req){  
+       console.log('rtrv confirm');
+   var db = nano.use('node_votes');
+      db.view('name','rooms',  { revs_info: true, group_level:3 }, function(err, rooms) {
+  if (!err){
+           req.io.broadcast('newvotes', {rooms: rooms});
+      }
+  });
+    });
+
+ app.io.route('votecast', function(req){
+    var db = nano.use('node_votes');
+        console.log('('+req.data.session+')'+ 'voted: ' + req.data.value + ' room: ' + req.data.room);    db.insert({room: req.data.room, session: req.data.session, vote:req.data.value}, '',  function(err, body, header) {      if (err) {
+        console.log('[db.insert] ', err.message);
+        return;
+    }
+    });
+
+  
+});
+
+
+app.get('/', function(req, res){
+ // req.session.loginDate = new Date().toString();
+  res.render('index');
+});
+
+app.get('/vote', function(req, res){
+  var db = nano.use('node_votes');
+      db.get('votelist',  { revs_info: true }, function(err, votelist) {
+  if (!err){
+      res.render('vote', {games: votelist.games, room:'LAN Vote'});
+        console.log(votelist);}
+});
+  
+});
+
+app.get('/vote/:id', function(req, res){
+     var db = nano.use('node_votes');
+      db.get('votelist',  { revs_info: true }, function(err, votelist) {
+  if (!err){
+       res.render('vote',{games: votelist.games, room:req.params.id } );
+       //
+        console.log(votelist);}
+});
+});
+
+app.get('/admin', function(req, res){
+ var db = nano.use('node_votes');
+      db.view('name','rooms',  { revs_info: true, group_level:3 }, function(err, rooms) {
+  if (!err){
+           res.render('admin', {rooms: rooms, room:'LAN Vote'});
+      }
+    console.log(rooms);});
+});
+
+app.listen(1337);
+
+console.log('app started');

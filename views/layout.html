@@ -1,0 +1,18 @@
+﻿<!doctype html>
+<html>
+<head>
+    <title>{% block title %}LAN Vote{% endblock %}</title>
+    {% block head %}
+    <script src="/js/jquery-2.0.3.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link href="/css/site.css" rel="stylesheet" />
+    {% endblock %}
+</head>
+
+<body class="main-vote-content ">
+    <header><div id="title"><h1>{% block room %}LAN Vote{% endblock %}</h1></div></header>
+    <nav><div><span><a href="/admin">admin</a><a href="/vote">vote</a></span></div></nav>
+    {% block content %}{% endblock %}
+</body>
+
+</html>
