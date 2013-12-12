@@ -1,28 +1,34 @@
-﻿var rooms = null;
-var realchart;
+﻿var chart;
+var rooms = null;
+var labels = [];
+var chartdata = [];
 socket = io.connect();
 
-socket.on('newvotes', function(data){
-var chartdata = [];
-var labels = [];
-$.each(data.rooms.rows,function(i,item){
-chartdata.push(item.value);
-labels.push(item.key);
+socket.on('newresults', function(data){
+$('#spndata').text(JSON.stringify(data.rooms));
+});
 
-});
-realchart.series[0].setData(chartdata);
-});
+  function requestData(){
+    var chartdata = [];
+    var data = $.parseJSON($('#spndata').text());
+    $.each(data.rows,function(i,item){
+    chartdata.push(item.value);
+    });
+    chart.series[0].setData(chartdata);
+    setTimeout(requestData, 3000);
+}
+ 
+ setTimeout(requestData, 3000);    
 
 $(document).ready(function(){
 var totalVotesInRooms = "Total Votes All Rooms";
-var dps = $.parseJSON($('#lbldata').text());
-var chartdata = [];
-var labels = [];
+var dps = $.parseJSON($('#spndata').text());
 $.each(dps.rows,function(i,item){
 chartdata.push(item.value);
-labels.push(item.key);
+labels.push(item.key[1]);
 });
-realchart = new Highcharts.Chart({
+
+chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'chartContainer',
                 type: 'column'
@@ -47,7 +53,7 @@ realchart = new Highcharts.Chart({
                 }
             },
         //    series:dps
-          series: [{data:chartdata}]
+          series: [{name:'Room1',data:chartdata}]
         });
 
 });

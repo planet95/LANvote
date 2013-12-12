@@ -3,9 +3,8 @@
 
 {% block head %}
  {% parent %}
-<script>var data = "{{rooms|json_encode}}";</script>
 <script src="/js/highcharts.js"></script>
-<script src="/js/admin.js"></script>
+<script src="/js/results.js"></script>
 
 
 {% endblock %}
@@ -13,8 +12,7 @@
 {% block content %}
 <br/>
 <br />
-<label id="lbldata" style="display:none;">{{ rooms|json_encode }}</label>
-<span id="spndata" style="display:none;"></span>
+<span id="spndata" style="display:none;">{{ votes|json_encode }}</span>
 <br />
 <div id="chartContainer"></div>
      {% endblock %}
