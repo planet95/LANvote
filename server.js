@@ -34,7 +34,7 @@ app.io.route('ready', function(req){
 
 app.io.route('rtrvdata', function(req){  
    var db = nano.use('node_votes');
-  db.view('name','rooms',  { revs_info: true, group_level:3 }, function(err, rooms) {
+  db.view('filters','rooms',  { revs_info: true, group_level:3 }, function(err, rooms) {
   if (!err){
            req.io.broadcast('newvotes', {rooms: rooms});
       }
@@ -54,7 +54,7 @@ app.io.route('votecast', function(req){
 
 app.io.route('rtrvresults', function(req){  
    var db = nano.use('node_votes');
-  db.view('name','votes',  { revs_info: true, group_level:3,startkey:[req.data.id], endkey:[req.data.id,{}] }, function(err, rooms) {
+  db.view('filters','votes',  { revs_info: true, group_level:3,startkey:[req.data.id], endkey:[req.data.id,{}] }, function(err, rooms) {
   if (!err){
            req.io.broadcast('newresults', {rooms: rooms});
       }
@@ -98,7 +98,7 @@ app.get('/vote/:id/results', function(req, res){
 
 app.get('/admin', function(req, res){
  var db = nano.use('node_votes');
-      db.view('name','rooms',  { revs_info: true, group_level:3 }, function(err, rooms) {
+      db.view('filters','rooms',  { revs_info: true, group_level:3 }, function(err, rooms) {
   if (!err){
            res.render('admin', {rooms: rooms, room:'LAN Vote'});
       }
