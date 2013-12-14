@@ -33,6 +33,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="public\js\bootstrap.min.js" />
     <Compile Include="public\js\results.js" />
     <Compile Include="public\js\admin.js" />
     <Compile Include="public\js\highcharts.js" />
@@ -42,6 +43,8 @@
     <Compile Include="public\js\vote.js" />
     <Compile Include="server.js" />
     <Content Include="package.json" />
+    <Content Include="public\css\bootstrap.css" />
+    <Content Include="public\css\bootstrap.min.css" />
     <Content Include="public\css\site.css" />
     <Content Include="public\images\bf4.jpg" />
     <Content Include="public\images\cannabis.jpg" />

@@ -9,12 +9,15 @@ $('#spndata').text(JSON.stringify(data.rooms));
 });
 
   function requestData(){
-    var chartdata = [];
     var data = $.parseJSON($('#spndata').text());
+    chartdata = [];
+    labels = [];
     $.each(data.rows,function(i,item){
     chartdata.push(item.value);
+    labels.push(item.key[1]);
     });
     chart.series[0].setData(chartdata);
+    chart.xAxis[0].setCategories(labels,true);
     setTimeout(requestData, 3000);
 }
  

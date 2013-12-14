@@ -8,9 +8,10 @@ var labels = [];
 $.each(data.rooms.rows,function(i,item){
 chartdata.push(item.value);
 labels.push(item.key);
-
 });
+realchart.xAxis[0].setCategories(labels,true);
 realchart.series[0].setData(chartdata);
+
 });
 
 $(document).ready(function(){
@@ -25,7 +26,7 @@ labels.push(item.key);
 realchart = new Highcharts.Chart({
             chart: {
                 renderTo: 'chartContainer',
-                type: 'column'
+                type: 'bar'
             },
             title: {
                 text: 'Real-Time Graph of Votes'

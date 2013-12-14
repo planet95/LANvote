@@ -24,7 +24,7 @@ app.io.sockets.on('connection', function (socket) {
      socket.on('event', function(event) {
         socket.join(event);
     });
-    console.log(socket.id + '<---This Guy. New Person connected.' );
+    console.log('This Guy! --->' + socket.id + '<--- New Person connected.' );
 });
 
 app.io.route('ready', function(req){  
@@ -33,7 +33,6 @@ app.io.route('ready', function(req){
     });
 
 app.io.route('rtrvdata', function(req){  
-       console.log('rtrv confirm');
    var db = nano.use('node_votes');
   db.view('name','rooms',  { revs_info: true, group_level:3 }, function(err, rooms) {
   if (!err){
@@ -54,7 +53,6 @@ app.io.route('votecast', function(req){
 });
 
 app.io.route('rtrvresults', function(req){  
-       console.log('rtrv confirm');
    var db = nano.use('node_votes');
   db.view('name','votes',  { revs_info: true, group_level:3,startkey:[req.data.id], endkey:[req.data.id,{}] }, function(err, rooms) {
   if (!err){
@@ -73,7 +71,7 @@ app.get('/vote', function(req, res){
       db.get('votelist',  { revs_info: true }, function(err, votelist) {
   if (!err){
       res.render('vote', {games: votelist.games, room:'LAN Vote'});
-        console.log(votelist);}
+        console.log(req.session.id + ' entered vote page');}
 });
   
 });
@@ -84,7 +82,7 @@ app.get('/vote/:id', function(req, res){
   if (!err){
        res.render('vote',{games: votelist.games, room:req.params.id } );
        //
-        console.log(votelist);}
+        console.log('This Guy! --->' + req.session.id + '<--- entered room:' + req.params.id + 'voting: ' + votelist);}
 });
 });
 
@@ -92,7 +90,7 @@ app.get('/vote/:id/results', function(req, res){
      var db = nano.use('node_votes');
       db.view('name','votes',  { revs_info: true, group_level:3, startkey:[req.params.id], endkey:[req.params.id,{}] }, function(err, votes) {
   if (!err){
-          console.log(votes);
+          console.log(req.session.id + '<--- entered results page');
            res.render('results',{room:req.params.id, votes:votes} );
       }
   });
@@ -104,7 +102,7 @@ app.get('/admin', function(req, res){
   if (!err){
            res.render('admin', {rooms: rooms, room:'LAN Vote'});
       }
-    console.log(rooms);
+    console.log(req.session.id + '<--- entered admin page');
     });
 });
 

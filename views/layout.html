@@ -2,17 +2,43 @@
 <html>
 <head>
     <title>{% block title %}LAN Vote{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block head %}
     <script src="/js/jquery-2.0.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <link href="/css/site.css" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
     {% endblock %}
 </head>
 
 <body class="main-vote-content ">
-    <header><div id="title"><h1>{% block room %}LAN Vote{% endblock %}</h1></div></header>
-    <nav><div><span><a href="/admin">admin</a><a href="/vote">vote</a></span></div></nav>
-    {% block content %}{% endblock %}
+    <nav class="navbar navbar-default navbar-inverse nav-justified" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">LAN Vote</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="/admin">stats</a></li>
+                <li><a href="/vote">vote</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+
+
+        <div id="title"><h1>{% block room %}LAN Vote{% endblock %}</h1></div>
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+
 </body>
 
 </html>

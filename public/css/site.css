@@ -5,7 +5,11 @@
         margin-left: auto;
     margin-right:auto;
 }
+#title {
 
+    text-align:center;
+    color:ghostwhite;
+}
 .main-vote-content {
     min-height:  1080px;
   /* IE10 Consumer Preview */ 
