@@ -40,6 +40,7 @@
     <Compile Include="public\js\index.js" />
     <Compile Include="public\js\jquery-2.0.3.min.js" />
     <Compile Include="public\js\socket.io-client.js" />
+    <Compile Include="public\js\votelist.js" />
     <Compile Include="public\js\vote.js" />
     <Compile Include="server.js" />
     <Content Include="package.json" />
@@ -63,6 +64,7 @@
     <Content Include="views\admin.html" />
     <Content Include="views\index.html" />
     <Content Include="views\layout.html" />
+    <Content Include="views\votelist.html" />
     <Content Include="views\vote.html" />
   </ItemGroup>
   <ItemGroup>

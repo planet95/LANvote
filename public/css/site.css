@@ -46,6 +46,9 @@ background-image: linear-gradient(to bottom, #4D3C3C 0%, #0B0B0D 100%);
    width: 85%;
 }
 
+#rooms { color:whitesmoke;
+}
+
 #list { list-style-type: none; padding-left:35px; width: auto;
  box-shadow: 10px 10px 5px #888888; height: 100%; }
 

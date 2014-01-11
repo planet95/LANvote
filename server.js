@@ -62,15 +62,14 @@ app.io.route('rtrvresults', function(req){
     });
 
 app.get('/', function(req, res){
- // req.session.loginDate = new Date().toString();
   res.render('index');
 });
 
 app.get('/vote', function(req, res){
   var db = nano.use('node_votes');
-      db.get('votelist',  { revs_info: true }, function(err, votelist) {
+   db.view('filters','rooms',  { revs_info: true, group_level:3 }, function(err, votelist) {
   if (!err){
-      res.render('vote', {games: votelist.games, room:'LAN Vote'});
+      res.render('votelist', {games: votelist.rows, room:'LAN Vote'});
         console.log(req.session.id + ' entered vote page');}
 });
   
@@ -88,9 +87,9 @@ app.get('/vote/:id', function(req, res){
 
 app.get('/vote/:id/results', function(req, res){
      var db = nano.use('node_votes');
-      db.view('name','votes',  { revs_info: true, group_level:3, startkey:[req.params.id], endkey:[req.params.id,{}] }, function(err, votes) {
+      db.view('filters','votes',  { revs_info: true, group_level:3, startkey:[req.params.id], endkey:[req.params.id,{}] }, function(err, votes) {
   if (!err){
-          console.log(req.session.id + '<--- entered results page');
+           console.log(req.session.id + '<--- entered results page');
            res.render('results',{room:req.params.id, votes:votes} );
       }
   });
