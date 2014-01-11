@@ -8,8 +8,8 @@
 {% block content %}
 <div id="listWrap">
     <div id="rooms">
-        {% for room in games %}
-        <a href="/vote/{{room.key}}">{{room.key}}</a> <span>   Current Votes:  {{room.value}}</span> <br/>
+        {% for game in games %}
+            <a href="/vote/{{game.key}}">{{game.key}}</a> <span>   Current Votes:  {{game.value}}</span> <br/>
         {% endfor %}
     </div>
 </div>
