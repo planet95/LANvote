@@ -5,7 +5,7 @@ app.config(['$routeProvider', function($routeProvider) {
         $routeProvider.
 			when('/', { templateUrl: 'partials/index.html', controller: ListCtrl }).
 			//when('/room/room', { templateUrl: 'partials/vote.html', controller: RoomListCtrl }).
-            when('/vote/:id', { templateUrl: 'partials/vote.html', controller: RoomListCtrl }).
+            when('/vote/:id', { templateUrl: 'partials/vote.html', controller: VoteCtrl }).
            otherwise({redirectTo: '/'});
 }]);
 

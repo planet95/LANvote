@@ -1,23 +1,8 @@
-﻿{% extends 'layout.html' %}
-
-{% block head %}
- {% parent %}
-<script src="/js/vote.js"></script>
-{% endblock %} 
-
-{% if room|lower === 'default' %}
-    {% block room %}
-   {{room}}
-    {% endblock %}
-{% endif %}
-
-{% block content %}
-<div id="listWrap">
+﻿<div id="listWrap">
 <div id="list">
-    {% for game in games %}
-    <div id="li_{{game.name}}">
-        <button id="btn_{{game.name}}" style="background-image: url('{{game.icon}}')" class="punch" onclick="sendVote(this)"></button> 
+ 
+    <div id="li_{{game.name}}" ng-repeat="game in votelist">
+        <button id="btn_{{game.name}}" style="background-image: url('{{game.icon}}')" class="punch" onclick="sendVote(this)"></button>
     </div>
-    {% endfor %}
 </div></div>
-{% endblock %}
+

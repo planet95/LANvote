@@ -1,16 +1,17 @@
 ﻿angular.module('lanvoteServices', ['ngResource']).
 	factory('Rooms', function($resource) {
-		return $resource('/list'
-              , {}, {
-			//// Use this method for getting a list of polls
-			query: { method: 'GET', params: { roomID: ''}, isArray:true }	}
+		return $resource('/vote', {
+			query: { method: 'GET', isArray:true }	}
 	)
 	}).
-    	factory('Room', function($resource) {
-		return $resource('/room'
-              , {}, {
-			//// Use this method for getting a list of polls
-			query: { method: 'GET', params: { roomID: ''}, isArray:true }	}
+      factory('Vote', function($resource) {
+		return $resource('/votelist/:id', {
+			query: { method: 'GET',params: { id:'@id'}}	}
+	)
+	}).
+    factory('Results', function($resource) {
+		return $resource('/results/:id', {
+			query: { method: 'GET', params: { id:'@id'}, isArray:true }	}
 	)
 	}).
 	factory('socket', function($rootScope) {

@@ -27,8 +27,10 @@ app.io.configure( function(){
 
 var routes = require('./routes');
 app.get('/', routes.index);
-app.get('/list', routes.list);
-app.get('/vote/:id', routes.room);
+app.get('/vote', routes.roomlist);
+app.get('/votelist', routes.votelist);
+app.get('/votelist/:id', routes.votelist);
+app.get('/results/:id', routes.results);
 
 
 //app.get('/vote/:id', function(req, res){
