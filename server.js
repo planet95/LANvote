@@ -1,24 +1,49 @@
-var express = require('express.io'),swig = require('swig'),connect = require('connect'), nano = require('nano')('https://planet95:C0d4e33@planet95.cloudant.com/');
+var express = require('express.io'),
+              jade = require('jade'),
+              swig = require('swig'),
+              connect = require('connect');
 var app = express().http().io();
-
-app.configure(function() {
-    app.engine('html', swig.renderFile);
-    app.use('/public',express.static(__dirname + '/public'));
-    //public is now root folder in all app.
-    app.use(connect.static(__dirname + '/public'));
-    app.use(express.methodOverride());
-    app.use(express.cookieParser())
-    app.set('view engine', 'html');
-    app.set('views', __dirname + '/views');
-    app.use(express.session({secret: 'lanvoter'}));
- 
-  });
-
 app.io.configure( function(){
-  app.io.set("transports", ["xhr-polling"]);
-  app.io.set("polling duration", 10);
-  app.io.set('log level', 2);
+   // app.engine('html', jade.renderFile);
+    app.use('/public',express.static(__dirname + '/public'))
+    //public is now root folder in all app.
+    app.use(connect.static(__dirname + '/public'))
+    app.use(express.methodOverride())
+    app.use(express.cookieParser())
+    app.use(express.session({secret: 'lanvoter'}))
+    app.set('view engine', 'jade')
+    app.use(app.router)
+    app.set('views', __dirname + '/views')
+    app.io.set("transports", ["xhr-polling"])
+    app.io.set("polling duration", 10)
+    app.io.set('log level', 2)
+
+    app.use(function(err, req, res, next) {
+	if(!err) return next();
+	console.log(err.stack);
+	res.json({error: true});
 });
+});
+
+var routes = require('./routes');
+app.get('/', routes.index);
+app.get('/list', routes.list);
+app.get('/vote/:id', routes.room);
+
+
+//app.get('/vote/:id', function(req, res){
+//     var db = nano.use('node_votes');
+//      db.get('votelist',  { revs_info: true }, function(err, votelist) {
+//  if (!err){
+//       res.render('vote',{games: votelist.games, room:req.params.id } );
+//       //
+//        console.log('This Guy! --->' + req.session.id + '<--- entered room:' + req.params.id + 'voting: ' + votelist);}
+//});
+//});
+//app.get('/polls/polls', routes.list);
+//app.get('/polls/:id', routes.poll);
+//app.post('/polls', routes.create);
+
 
 app.io.sockets.on('connection', function (socket) {
      socket.on('event', function(event) {
@@ -26,14 +51,15 @@ app.io.sockets.on('connection', function (socket) {
     });
     console.log('This Guy! --->' + socket.id + '<--- New Person connected.' );
 });
-
+/*
 app.io.route('ready', function(req){  
     req.io.emit('name',{name:req.data});
-
+     req.session.name = req.data;
+     req.session.save();
     });
 
 app.io.route('rtrvdata', function(req){  
-   var db = nano.use('node_votes');
+  
   db.view('filters','rooms',  { revs_info: true, group_level:3 }, function(err, rooms) {
   if (!err){
            req.io.broadcast('newvotes', {rooms: rooms});
@@ -61,9 +87,7 @@ app.io.route('rtrvresults', function(req){
   });
     });
 
-app.get('/', function(req, res){
-  res.render('index');
-});
+
 
 app.get('/vote', function(req, res){
   var db = nano.use('node_votes');
@@ -75,15 +99,7 @@ app.get('/vote', function(req, res){
   
 });
 
-app.get('/vote/:id', function(req, res){
-     var db = nano.use('node_votes');
-      db.get('votelist',  { revs_info: true }, function(err, votelist) {
-  if (!err){
-       res.render('vote',{games: votelist.games, room:req.params.id } );
-       //
-        console.log('This Guy! --->' + req.session.id + '<--- entered room:' + req.params.id + 'voting: ' + votelist);}
-});
-});
+
 
 app.get('/vote/:id/results', function(req, res){
      var db = nano.use('node_votes');
@@ -104,7 +120,7 @@ app.get('/admin', function(req, res){
     console.log(req.session.id + '<--- entered admin page');
     });
 });
-
+*/
 app.listen(1337);
 
 console.log('app started');
