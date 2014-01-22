@@ -27,10 +27,11 @@ app.io.configure( function(){
 
 var routes = require('./routes');
 app.get('/', routes.index);
-app.get('/vote', routes.roomlist);
-app.get('/votelist', routes.votelist);
-app.get('/votelist/:id', routes.votelist);
-app.get('/results/:id', routes.results);
+app.get('/roomlist', routes.roomlist);
+app.get('/vote', routes.votelist);
+app.get('/vote/:id', routes.votelist);
+app.get('/voteresults/:id', routes.results);
+app.post('/vote/:id', routes.votecast);
 
 
 //app.get('/vote/:id', function(req, res){
@@ -51,7 +52,14 @@ app.io.sockets.on('connection', function (socket) {
      socket.on('event', function(event) {
         socket.join(event);
     });
+
     console.log('This Guy! --->' + socket.id + '<--- New Person connected.' );
+
+    socket.on('vote', function(data) {
+        socket.broadcast.emit('newvote', data);
+        console.log('newvote cast from ' + data.roomid + '\n' + data.vote)
+    });
+   
 });
 /*
 app.io.route('ready', function(req){  

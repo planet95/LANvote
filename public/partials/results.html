@@ -1,18 +1,9 @@
-﻿{% extends 'layout.html' %}
-
-
-{% block head %}
- {% parent %}
-<script src="/js/highcharts.js"></script>
-<script src="/js/results.js"></script>
-
-
-{% endblock %}
-
-{% block content %}
+﻿
+<div id="title"><h1>{{name}}</h1></div>
 <br/>
 <br />
-<span id="spndata" style="display:none;">{{ votes|json_encode }}</span>
+<span id="spndata">{{ chart }}</span>
 <br />
-<div id="chartContainer"></div>
-     {% endblock %}
+<div id="chartContainer"><highchart id="chart1" config="chart[0]"></highchart></div>
+
+

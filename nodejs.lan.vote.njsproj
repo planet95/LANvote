@@ -39,6 +39,7 @@
     <Compile Include="public\js\angular.js" />
     <Compile Include="public\js\bootstrap.min.js" />
     <Compile Include="public\js\controllers.js" />
+    <Compile Include="public\js\highcharts-ng.js" />
     <Compile Include="public\js\results.js" />
     <Compile Include="public\js\admin.js" />
     <Compile Include="public\js\highcharts.js" />

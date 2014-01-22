@@ -19,7 +19,7 @@
     </ul>
     <div id="rooms">
         <ul ng-switch-default>
-            <li ng-repeat="game in rooms | filter:query">
+            <li ng-repeat="game in rooms | filter:query ">
                 <a href="#/vote/{{game.key}}">{{game.key}}</a> <span>   Current Votes:  {{game.value}}</span> 
             </li>
         </ul>
