@@ -1,0 +1,8 @@
+﻿<div id="listWrap">
+<div id="list">
+ 
+    <div id="li_{{game.name}}" ng-repeat="game in votelist">
+        <button id="btn_{{game.name}}" style="background-image: url('{{game.icon}}')" class="punch" onclick="sendVote(this)"></button>
+    </div>
+</div></div>
+

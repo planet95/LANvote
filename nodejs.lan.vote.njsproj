@@ -33,15 +33,21 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="public\js\angular-resource.js" />
+    <Compile Include="public\js\angular-route.js" />
+    <Compile Include="public\js\app.js" />
+    <Compile Include="public\js\angular.js" />
     <Compile Include="public\js\bootstrap.min.js" />
+    <Compile Include="public\js\controllers.js" />
     <Compile Include="public\js\results.js" />
     <Compile Include="public\js\admin.js" />
     <Compile Include="public\js\highcharts.js" />
-    <Compile Include="public\js\index.js" />
     <Compile Include="public\js\jquery-2.0.3.min.js" />
     <Compile Include="public\js\socket.io-client.js" />
+    <Compile Include="public\js\services.js" />
     <Compile Include="public\js\votelist.js" />
     <Compile Include="public\js\vote.js" />
+    <Compile Include="routes\index.js" />
     <Compile Include="server.js" />
     <Content Include="package.json" />
     <Content Include="public\css\bootstrap.css" />
@@ -60,18 +66,22 @@
     <Content Include="public\images\tribes.jpg" />
     <Content Include="public\images\ut2k4.png" />
     <Content Include="README.md" />
-    <Content Include="views\results.html" />
-    <Content Include="views\admin.html" />
-    <Content Include="views\index.html" />
+    <Content Include="views\index.jade" />
+    <Content Include="public\partials\results.html" />
+    <Content Include="public\partials\admin.html" />
+    <Content Include="public\partials\index.html" />
     <Content Include="views\layout.html" />
-    <Content Include="views\votelist.html" />
-    <Content Include="views\vote.html" />
+    <Content Include="public\partials\votelist.html" />
+    <Content Include="public\partials\vote.html" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="models\" />
+    <Folder Include="routes\" />
     <Folder Include="public\" />
     <Folder Include="public\css\" />
     <Folder Include="public\images\" />
     <Folder Include="public\js\" />
+    <Folder Include="public\partials\" />
     <Folder Include="views\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />

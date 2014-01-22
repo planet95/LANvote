@@ -1,0 +1,27 @@
+﻿<div class="page-header">
+    <h1>Room List</h1>
+</div>
+<div class="row">
+    <div class="col-xs-5">
+        <input type="text" class="form-control" ng-model="query" placeholder="Search for an existing Vote Room">
+    </div>
+    <div class="col-xs-7">
+        <a href="#/new" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> New Vote</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12"><hr></div>
+</div>
+
+<div id="listWrap" ng-switch on="rooms.length">
+    <ul ng-switch-when="0">
+        <li><em>No voting rooms in databases. Would you like to <a href="#/new">create one</a>?</li>
+    </ul>
+    <div id="rooms">
+        <ul ng-switch-default>
+            <li ng-repeat="game in rooms | filter:query">
+                <a href="#/vote/{{game.key}}">{{game.key}}</a> <span>   Current Votes:  {{game.value}}</span> 
+            </li>
+        </ul>
+    </div>
+</div>
