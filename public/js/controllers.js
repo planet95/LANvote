@@ -19,14 +19,8 @@ function VoteCtrl($scope, $routeParams, socket, Vote) {
 
              $scope.vote = { roomid: roomName, vote: choice };
              var voteObj = $scope.vote;
-             socket.emit('vote',voteObj);
-            // NewVote.vote = voteObj;
-            console.log('save 1 commence newvote info');
-            Vote($scope.vote);
-            Vote.data = $scope.vote;
-         //   NewVote.$update();
-            Vote.save();
-            console.log('save 2 commence newvote info');
+
+             socket.emit('votecast',voteObj);
 
             }};
           

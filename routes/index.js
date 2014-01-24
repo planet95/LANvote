@@ -17,6 +17,7 @@ exports.index = function(req, res) {
 	res.render('index');
 };
 
+
 exports.roomlist = function(req,res){
     res.json(voteRooms.list.rows);
     console.log('collecting roomlist');
@@ -74,15 +75,17 @@ else {
 	});
 };
 
-exports.votecast = function(req, res){
-       // console.log('('+req.data.session+')'+ 'voted: ' + req.data.value + ' room: ' + req.data.room);
-        db.insert({room: req.data.roomid, name:req.data.roomid, session: req.data.roomid, vote:req.data.vote}, '',  function(err, body, header) {
-      if (err) {
-        console.log('[db.insert] ', err.message);
-        return;
-    }
-        console.log(body);
-        return;
+//exports.votecast = function(req, res){
+//       // console.log('('+req.data.session+')'+ 'voted: ' + req.data.value + ' room: ' + req.data.room);
+//        db.insert({room: req.data.roomid, name:req.data.roomid, session: req.data.roomid, vote:req.data.vote}, '',  function(err, body, header) {
+//      if (err) {
+//        console.log('[db.insert] ', err.message);
+//        return;
+//    }
+//        console.log(body);
+//        return;
  
-    });
-};
+//    });
+//};
+
+

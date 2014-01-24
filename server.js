@@ -1,16 +1,20 @@
+
 var express = require('express.io'),
-              jade = require('jade'),
-              swig = require('swig'),
-              connect = require('connect');
+    jade = require('jade'),
+    swig = require('swig'),
+    connect = require('connect'), nano = require('nano')('https://planet95:C0d4e33@planet95.cloudant.com/');
+
 var app = express().http().io();
-app.io.configure( function(){
-   // app.engine('html', jade.renderFile);
-    app.use('/public',express.static(__dirname + '/public'))
+app.io.configure(function() {
+    // app.engine('html', jade.renderFile);
+    app.use('/public', express.static(__dirname + '/public'))
     //public is now root folder in all app.
     app.use(connect.static(__dirname + '/public'))
     app.use(express.methodOverride())
     app.use(express.cookieParser())
-    app.use(express.session({secret: 'lanvoter'}))
+    app.use(express.session({
+        secret: 'lanvoter'
+    }))
     app.set('view engine', 'jade')
     app.use(app.router)
     app.set('views', __dirname + '/views')
@@ -19,10 +23,12 @@ app.io.configure( function(){
     app.io.set('log level', 2)
 
     app.use(function(err, req, res, next) {
-	if(!err) return next();
-	console.log(err.stack);
-	res.json({error: true});
-});
+        if (!err) return next();
+        console.log(err.stack);
+        res.json({
+            error: true
+        });
+    });
 });
 
 var routes = require('./routes');
@@ -31,7 +37,7 @@ app.get('/roomlist', routes.roomlist);
 app.get('/vote', routes.votelist);
 app.get('/vote/:id', routes.votelist);
 app.get('/voteresults/:id', routes.results);
-app.post('/vote/:id', routes.votecast);
+//app.post('/vote/:id', routes.votecast);
 
 
 //app.get('/vote/:id', function(req, res){
@@ -48,19 +54,33 @@ app.post('/vote/:id', routes.votecast);
 //app.post('/polls', routes.create);
 
 
-app.io.sockets.on('connection', function (socket) {
-     socket.on('event', function(event) {
+app.io.sockets.on('connection', function(socket) {
+    socket.on('event', function(event) {
         socket.join(event);
     });
 
-    console.log('This Guy! --->' + socket.id + '<--- New Person connected.' );
+    console.log('This Guy! --->' + socket.id + '<--- New Person connected.');
 
     socket.on('vote', function(data) {
         socket.broadcast.emit('newvote', data);
         console.log('newvote cast from ' + data.roomid + '\n' + data.vote)
     });
-   
+
 });
+
+app.io.route('votecast', function(req){
+    var db = nano.use('node_votes');
+        console.log('('+req.data.session+')'+ 'voted: ' + req.data.value + ' room: ' + req.data.room);
+    db.insert({room: req.data.roomid, name:req.data.roomid, session: req.data.session, vote:req.data.vote}, '',  function(err, body, header) {
+      if (err) {
+        console.log('[db.insert] ', err.message);
+        return;
+    }
+    });
+});
+
+
+
 /*
 app.io.route('ready', function(req){  
     req.io.emit('name',{name:req.data});
@@ -77,16 +97,7 @@ app.io.route('rtrvdata', function(req){
   });
     });
 
-app.io.route('votecast', function(req){
-    var db = nano.use('node_votes');
-        console.log('('+req.data.session+')'+ 'voted: ' + req.data.value + ' room: ' + req.data.room);
-    db.insert({room: req.data.room, name:req.data.name, session: req.data.session, vote:req.data.value}, '',  function(err, body, header) {
-      if (err) {
-        console.log('[db.insert] ', err.message);
-        return;
-    }
-    });
-});
+
 
 app.io.route('rtrvresults', function(req){  
    var db = nano.use('node_votes');
@@ -133,4 +144,4 @@ app.get('/admin', function(req, res){
 */
 app.listen(1337);
 
-console.log('app started');
+console.log('app started'); 

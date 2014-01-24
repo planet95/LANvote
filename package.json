@@ -1,11 +1,11 @@
 {
-  "name": "NodejsApp1",
-  "version": "0.0.0",
-  "description": "NodejsApp1",
+  "name": "LANVote",
+  "version": "0.0.1",
+  "description": "Real Time Voting Node.js app",
   "main": "server.js",
   "author": {
     "name": "Cody",
-    "email": ""
+    "email": "planet95@gmail.com"
   },
   "dependencies": {
     "express.io": "~1.1.13",
@@ -13,7 +13,7 @@
     "socket.io": "~0.9.16",
     "connect": "~2.11.2",
     "nano": "~4.2.1",
-    "jade": "~1.1.4",
-    "swig": "~1.2.2"
+    "swig": "~1.2.2",
+    "jade": "~1.1.5"
   }
 }
