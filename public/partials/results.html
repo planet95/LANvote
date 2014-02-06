@@ -1,9 +1,9 @@
 ﻿
-<div id="title"><h1>{{name}}</h1></div>
+<div class="page-header"><h1>{{name}}</h1></div>
 <br/>
 <br />
-<span id="spndata">{{ chart }}</span>
-<br />
-<div id="chartContainer"><highchart id="chart1" config="chart[0]"></highchart></div>
-
+<div id="chartContainer" cool-fade><highchart id="chart1" config="chart[0]"></highchart></div>
+<br/>
+JSON: 
+<span id="spndata" style="color:white;display:none;">{{ chart | json }}</span>
 

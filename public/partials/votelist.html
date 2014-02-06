@@ -17,7 +17,7 @@
     <ul ng-switch-when="0">
         <li><em>No voting rooms in databases. Would you like to <a href="#/new">create one</a>?</li>
     </ul>
-    <div id="rooms">
+    <div id="rooms" cool-fade>
         <ul ng-switch-default>
             <li ng-repeat="room in rooms | filter:query">
                 {{room.key}} <a href="#/vote/{{room.key}}">Vote</a> || <a href="#/results/{{room.key}}">Results</a>  <span>   Current Votes:  {{room.value}}</span>

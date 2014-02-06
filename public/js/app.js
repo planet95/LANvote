@@ -8,7 +8,18 @@ app.config(['$routeProvider', function($routeProvider) {
             when('/resultsdata/:id', { templateUrl: 'partials/results.html', controller: ResultsDataCtrl }).
             when('/vote/:id', { templateUrl: 'partials/vote.html', controller: VoteCtrl }).
             otherwise({redirectTo: '/vote'});
-}]);
+}]).directive('coolFade', function() {
+    return {
+      compile: function(elm) {
+        console.log('compiling');
+        $(elm).css('opacity', 0.1);
+        return function(scope, elm, attrs) {
+          console.log('animating');
+          $(elm).animate({ opacity : 1.0 }, 1000 );
+        };
+      }
+    };
+  });
 
 app.factory('Rooms', function($resource) {
 		return $resource('/roomlist', {
@@ -17,27 +28,16 @@ app.factory('Rooms', function($resource) {
 	});
 app.factory('Vote', function($resource) {
 		return $resource('/vote/:id',{ id:'@id'}, {
-			query: { method: 'GET', isArray: true}},{
-            save: { method: 'POST', isArray: false}
-	});
+			query: { method: 'GET', isArray: true}}
+	);
 	});
 app.factory('Results', function($resource) {
 		return $resource('/voteresults/:id', {
 			query: { method: 'GET', params: { id:'@id'}, isArray: false }	}
 	)
 	});
-    //app.factory('NewVote',['$http','$rootScope', function($resource, $http, $rootScope) {
-	//	return { saveVote: function($params) {
-    //            return $http.get('/votecast').then(function(response) {
-    //    vote = response.data;
-    //  //  $rootScope.$broadcast('handleSharedBooks',books);
-    //    return books;
-    //  })
-    //            }
-                
-    //            }}]);
 
- app.factory('socket', function($rootScope) {
+app.factory('socket', function($rootScope) {
 		var socket = io.connect();
 		return {
 		on: function (eventName, callback) {

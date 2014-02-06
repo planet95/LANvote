@@ -55,23 +55,23 @@ app.get('/voteresults/:id', routes.results);
 
 
 app.io.sockets.on('connection', function(socket) {
-    socket.on('event', function(event) {
-        socket.join(event);
-    });
-
     console.log('This Guy! --->' + socket.id + '<--- New Person connected.');
-
-    socket.on('vote', function(data) {
-        socket.broadcast.emit('newvote', data);
-        console.log('newvote cast from ' + data.roomid + '\n' + data.vote)
-    });
-
 });
 
+app.io.route('ready', function(req) {
+    req.io.join(req.data)
+    req.io.room(req.data).broadcast('announce', {
+        message: 'New client in the ' + req.data + ' room. '
+    })
+})
+
 app.io.route('votecast', function(req){
+    //tell room that vote has been cast
+    req.io.room(req.data.roomid).broadcast('votecast', req.data);
+
     var db = nano.use('node_votes');
-        console.log('('+req.data.session+')'+ 'voted: ' + req.data.value + ' room: ' + req.data.room);
-    db.insert({room: req.data.roomid, name:req.data.roomid, session: req.data.session, vote:req.data.vote}, '',  function(err, body, header) {
+        console.log('('+req.io.socket.id+')'+ 'voted: ' + req.data.vote + ' room: ' + req.data.roomid);
+    db.insert({room: req.data.roomid, name:req.data.roomid, session: req.io.socket.id, vote:req.data.vote}, '',  function(err, body, header) {
       if (err) {
         console.log('[db.insert] ', err.message);
         return;

@@ -5,59 +5,48 @@ function ListCtrl($scope, Rooms) {
 function VoteCtrl($scope, $routeParams, socket, Vote) {
 	$scope.votelist = Vote.query({id: $routeParams.id});
     $scope.name =$routeParams.id;
-    $scope.random = function() {
-    return 0.5 - Math.random();
-    }
+    socket.emit('ready',$scope.name);
     $scope.vote= {};
     $scope.vote.roomid = 'Default';
     $scope.castVote = function(data) {
-         
-        var choice =  data.userChoice.name;
-         var roomName = $routeParams.id;
-        // $scope.random();
-         if(roomName){
-
-             $scope.vote = { roomid: roomName, vote: choice };
-             var voteObj = $scope.vote;
-
-             socket.emit('votecast',voteObj);
-
-            }};
-          
-        
+        if($routeParams.id){
+    $scope.vote = { roomid: $routeParams.id, vote:  data.userChoice.name };
+        socket.emit('votecast',$scope.vote);
+    if($scope.random){
+            $("#list div").sort(function(){
+            return Math.random()*10 > 5 ? 1 : -1;
+            }).each(function(){
+            var $t = $(this), id = $t.attr("id"),
+            bg = $t.find("button").css("background-image"),btn = $t.find("button");
+            btn.css("background-image", bg).appendTo($t);
+            $t.attr('id', id).appendTo($t.parent());
+            });
+       }
+    }
+    };    
 }
 
-//    $http.post("/votecast/", $.param(voteObj), { 
-//               headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}, 
-//               transformRequest: true
-// }).success(function(data){
-
-//               console.log(data);
-//               return data;
-//    //Callback function here.
-//    //"data" is the response from the server.
-//    console.log('success');
-//}).error(function(data, status){
-//    console.log('errors: ' + data + '\n' + status);
-//    });
-
-
 function ResultsCtrl($scope, $routeParams, socket, Results) {
-    var data = Results.query({id: $routeParams.id});
+    $scope.chart = Results.query({id: $routeParams.id});
     console.log('ResultsCtrl: ' + $scope.data);
     $scope.name =$routeParams.id;
-    	socket.on('newvote', function(data) {
-		console.dir(data);
-	});
-    $scope.chart = data;
-    //$scope.$on('$destroy', function (event) {
-    //    socket.removeAllListeners();
-    //    // or something like
-    //    // socket.removeListener(this);
-    //});
+    socket.emit('ready',$scope.name);
+    socket.on('votecast', function(data) {
+    var chart=   $('#chart1').highcharts();
+   if($scope.chart[0] != null){
+        var max = chart.yAxis[0].max;
+             var index = $scope.chart[0].xAxis.categories.indexOf(data.vote); 
+             if(index == -1){ 
+                  $scope.chart[0].xAxis.categories.push(data.vote);
+                  index = $scope.chart[0].xAxis.categories.indexOf(data.vote); 
+                  $scope.chart[0].series[0].data[index] = 0 ;
+                 }
+         $scope.chart[0].series[0].data[index]++;
+         chart.series[0].setData($scope.chart[0].series[0].data);
+         console.log('votecast: ' + data.vote + ' :: ' + $scope.chart[0].series[0].data[index]);
+   }
+});
 
-  
-     console.log('leaving results ctrl ' + data);
 }
  
 
