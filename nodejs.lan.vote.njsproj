@@ -66,6 +66,7 @@
     <Content Include="public\images\thehidden.png" />
     <Content Include="public\images\tribes.jpg" />
     <Content Include="public\images\ut2k4.png" />
+    <Content Include="public\partials\new.html" />
     <Content Include="README.md" />
     <Content Include="views\index.jade" />
     <Content Include="public\partials\results.html" />

@@ -2,9 +2,13 @@
 function ListCtrl($scope, Rooms) {
 	$scope.rooms = Rooms.query();
 }
+
+function NewVoteCtrl($scope, socket) {
+	$scope.name = 'new vote';
+}
 function VoteCtrl($scope, $routeParams, socket, Vote) {
-	$scope.votelist = Vote.query({id: $routeParams.id});
-    $scope.name =$routeParams.id;
+	  $scope.votelist = Vote.query({id: $routeParams.id});
+   // $scope.name =$scope.votelist.name;
     socket.emit('ready',$scope.name);
     $scope.vote= {};
     $scope.vote.roomid = 'Default';

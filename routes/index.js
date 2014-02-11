@@ -8,7 +8,7 @@ var voteRooms = db.view('filters','rooms',  { revs_info: true, group_level:3 }, 
 
  var votelist = db.get('votelist',  { revs_info: true }, function(err, list) {
   if (!err){
-       votelist.list = list.games
+       votelist.default = list
        }
 });
 
@@ -31,7 +31,14 @@ exports.roomlist = function(req,res){
 exports.votelist = function(req,res){
     if(req.params.id != null)
         console.log('collecting newlist :: ' + req.params.id);
-    res.json(votelist.list);
+    db.get('votelist_' + req.params.id,  { revs_info: true }, function(err, list) {
+  if (!err){
+       res.json(list);
+       }
+    else{
+    res.json(votelist.default);
+    }
+});
 }
 
 exports.results = function(req, res) {

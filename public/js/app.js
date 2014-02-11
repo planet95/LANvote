@@ -7,6 +7,7 @@ app.config(['$routeProvider', function($routeProvider) {
 			when('/results/:id', { templateUrl: 'partials/results.html', controller: ResultsCtrl }).
             when('/resultsdata/:id', { templateUrl: 'partials/results.html', controller: ResultsDataCtrl }).
             when('/vote/:id', { templateUrl: 'partials/vote.html', controller: VoteCtrl }).
+            when('/new', { templateUrl: 'partials/new.html', controller: NewVoteCtrl }).
             otherwise({redirectTo: '/vote'});
 }]).directive('coolFade', function() {
     return {
@@ -28,7 +29,7 @@ app.factory('Rooms', function($resource) {
 	});
 app.factory('Vote', function($resource) {
 		return $resource('/vote/:id',{ id:'@id'}, {
-			query: { method: 'GET', isArray: true}}
+			query: { method: 'GET', isArray: false}}
 	);
 	});
 app.factory('Results', function($resource) {

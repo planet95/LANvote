@@ -120,41 +120,50 @@ nav ul li {
 }
 
 #list div {
-             margin: 35px 13px 0px 13px;
-             padding: 1px;
-             float: left;
-             width: 330px;
-             height: 125px;
-             font-size: 4em;
-             text-align: center;
+    margin: 35px 13px 0px 13px;
+    padding: 1px;
+    float: left;
+    width: 330px;
+    height: 125px;
+    font-size: 4em;
+    text-align: center;
 }
 
 footer {
-height: 0px;
+    height: 0px;
 }
-button.punch {   height:115px;
-  width: 328px; background-image: url('http://img.booru.org/steambanners//images/5/4a66ab78bbcb79c07239dac0fa1a51f093837325.jpg');
-  background-size: cover;
-  border-top: 1px solid #BF3A48;
-  border-right: 1px solid #7F2730;
-  border-bottom: 1px solid #401318;
-  border-left: 1px solid #7F2730;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 10px 1px #BF3A48, 0px 1px 0 #7F2730, 0 6px 0px #401318, 0 8px 4px 1px #BF3A48;
-  box-shadow: inset 0 1px 10px 1px #BF3A48, 0px 1px 0 #401318, 0 6px 0px #401318, 0 8px 4px 1px #BF3A48;
-  color: #fff;
-  font: bold 20px/1 "helvetica neue", helvetica, arial, sans-serif;
-  margin-bottom: 10px;
-  padding: 10px 0 12px 0;
-  text-align: center;
-  text-shadow: 0px -1px 1px #401318;
+button.punch {   
+    height:115px;
+    width: 328px; background-image: url('http://img.booru.org/steambanners//images/5/4a66ab78bbcb79c07239dac0fa1a51f093837325.jpg');
+    background-size: cover;
+    border-top: 1px solid #BF3A48;
+    border-right: 1px solid #7F2730;
+    border-bottom: 1px solid #401318;
+    border-left: 1px solid #7F2730;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 10px 1px #BF3A48, 0px 1px 0 #E74F4E, 0 6px 0px #401318, 0 8px 4px 1px #BF3A48;
+    box-shadow: inset 0 1px 10px 1px #BF3A48, 0px 1px 0 #E74F4E, 0 6px 0px #401318, 0 8px 4px 1px #BF3A48;
+    font: bold 20px/1 "helvetica neue", helvetica, arial, sans-serif;
+    margin-bottom: 10px;
+    padding: 10px 0 12px 0;
+    font-size:100px;
+    color:#E74f4E;
+    text-align: center;
+    text-shadow: 0px -1px 1px #401318;
+    -webkit-background-clip: padding-box;
 
-  -webkit-background-clip: padding-box;}
+}
   button.punch:hover {
+  
     -webkit-box-shadow: inset 0 0px 20px 1px #ff87ad, 0px 1px 0 #7F2730, 0 6px 0px #401318, 0 8px 4px 1px #111111;
     box-shadow: inset 0 0px 20px 1px #ff87ad, 0px 1px 0 #7F2730, 0 6px 0px #401318, 0 8px 4px 1px #111111;
-    cursor: pointer; }
+    cursor: pointer; 
+
+  }
   button.punch:active {
+  
   -webkit-box-shadow: inset 0 1px 10px 1px #BF3A48, 0px 1px 0 #7F2730, 0 6px 0px #401318, 0 8px 4px 1px #111111;
   box-shadow: inset 0 1px 10px 1px #BF3A48, 0px 1px 0 #7F2730, 0 6px 0px #401318, 0 8px 4px 1px #111111;
-    margin-top: 8px; }
+  margin-top: 8px; 
+
+  }
