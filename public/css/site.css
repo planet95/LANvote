@@ -2,8 +2,45 @@
     min-height: 100%;
 }
 #listWrap{
-        margin-left: auto;
+    margin-left: auto;
     margin-right:auto;
+}
+#votelistname {
+    color:white;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    width: 100%;
+}
+#newvoteform
+{   float:right;
+    width:200px;
+    position:absolute;
+}
+
+#newList {
+    margin-top:150px;
+}
+
+#newList div {
+    width:368px;
+    margin-top:15px;
+}
+
+#newList span {
+color:white;
+margin-left:25px;
+font-size:25px;
+font-weight:bold;
+}
+#newvoteform input {
+        width:225px;
+        height:25px;
+}
+
+#newvoteform span {
+    color:white;
+      font-size:15px;
 }
 
 .navbar-inverse .navbar-brand {

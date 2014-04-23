@@ -5,15 +5,49 @@ function ListCtrl($scope, Rooms) {
 
 function NewVoteCtrl($scope, socket) {
 	$scope.name = 'new vote';
+    $scope.votelist = [];
+    $scope.newvote = {};
+    $scope.addnewvote = function(data){
+        $('#newvoteform').show();
+        if($scope.newVoteBG && $scope.newVoteName)
+            {
+                var newVote = { name :$scope.newVoteName, icon: $scope.newVoteBG };
+                $scope.votelist.push(newVote);
+                $scope.newVoteName= "";
+                $scope.newVoteBG= "";
+                $('#listWrap button').css('background-image',"url('')");
+                }
+        }
+
+    $scope.changebg = function(data){
+        console.log($scope.newVoteBG);
+        $('#listWrap button').css('background-image',"url('"+$scope.newVoteBG+"')");
+        }
+
+    $scope.votelistname = function(data){
+
+        if($scope.newVoteListName && $scope.votelist.length >=2)
+        $('#save').show();
+        else
+            $('#save').hide();
+        
+        }
+
+    $scope.savelist = function(data){
+        $scope.newvote = {name:$scope.newVoteListName, votelist:$scope.votelist};
+        socket.emit('newlist',$scope.newvote);
+        }
+
+
 }
-function VoteCtrl($scope, $routeParams, socket, Vote) {
+function VoteCtrl($scope, $routeParams, $location, socket, Vote) {
 	  $scope.votelist = Vote.query({id: $routeParams.id});
    // $scope.name =$scope.votelist.name;
     socket.emit('ready',$scope.name);
     $scope.vote= {};
     $scope.vote.roomid = 'Default';
+    console.log('votecast: ' + $scope.votelist.name);
     $scope.castVote = function(data) {
-        if($routeParams.id){
     $scope.vote = { roomid: $routeParams.id, vote:  data.userChoice.name };
         socket.emit('votecast',$scope.vote);
     if($scope.random){
@@ -26,8 +60,9 @@ function VoteCtrl($scope, $routeParams, socket, Vote) {
             $t.attr('id', id).appendTo($t.parent());
             });
        }
-    }
-    };    
+
+    };
+    
 }
 
 function ResultsCtrl($scope, $routeParams, socket, Results) {
@@ -36,7 +71,7 @@ function ResultsCtrl($scope, $routeParams, socket, Results) {
     $scope.name =$routeParams.id;
     socket.emit('ready',$scope.name);
     socket.on('votecast', function(data) {
-    var chart=   $('#chart1').highcharts();
+    var chart=$('#chart1').highcharts();
    if($scope.chart[0] != null){
         var max = chart.yAxis[0].max;
              var index = $scope.chart[0].xAxis.categories.indexOf(data.vote); 

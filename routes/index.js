@@ -1,4 +1,4 @@
-﻿var nano = require('nano')('https://planet95:C0d4e33@planet95.cloudant.com/');
+﻿var nano = require('nano')('https://planet95:h022roZP@planet95.cloudant.com/');
 var db = nano.use('node_votes');
 var voteRooms = db.view('filters','rooms',  { revs_info: true, group_level:3 }, function(err, list) {
   if (!err){
@@ -36,6 +36,7 @@ exports.votelist = function(req,res){
        res.json(list);
        }
     else{
+        votelist.default.name = req.params.id;
     res.json(votelist.default);
     }
 });

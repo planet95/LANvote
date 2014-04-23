@@ -8,12 +8,16 @@
     "email": "planet95@gmail.com"
   },
   "dependencies": {
-    "express.io": "~1.1.13",
-    "express": "~3.4.6",
     "socket.io": "~0.9.16",
     "connect": "~2.11.2",
     "nano": "~4.2.1",
     "swig": "~1.2.2",
-    "jade": "~1.1.5"
+    "jade": "~1.1.5",
+    "express.io": "~1.1.13",
+    "express": "~4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/planet95/LANvote.git"
   }
 }
