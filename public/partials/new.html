@@ -1,0 +1,22 @@
+﻿<div class="page-header"><h1><input type="text" ng-model="newVoteListName" ng-change="votelistname(this)" id="votelistname" placeholder="{{name}}" /></h1></div>
+<div id="listWrap">
+    <div cool-fade>
+        <div>
+            <button ng-model="newVote" ng-click="addnewvote(this)" id="btn_{{userChoice.name}}" style="background-image: url('{{userChoice.icon}}')" class="punch">+</button>
+            <button ng-model="newVote" ng-click="savelist(this)" id="save" class="punch" style="background-image: url('');background-color:green;display:none;color:black;margin-left:15px;">fin</button>
+
+        </div>
+        <div id="newvoteform" style="display:none;">
+            <div><span>Name:</span> <input ng-model="newVoteName" ng-change="changename()" type="text" /><br /></div>
+            <div><span> Background URL: </span> <input ng-model="newVoteBG" ng-change="changebg()" type="text" /><br /> </div>
+        </div>
+    </div>
+    </div>
+    <div id="newList">
+        <div id="li_{{userChoice.name}}" ng-repeat="userChoice in votelist">
+            <button ng-model="userChoice" ng-click="deleteVote(this)" id="btn_{{userChoice.name}}" style="background-image: url('{{userChoice.icon}}')" class="punch"></button>
+<span>{{userChoice.name}}</span>
+        </div>
+
+    </div>
+

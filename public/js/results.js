@@ -1,7 +1,6 @@
 ﻿var chart;
 var rooms = null;
-var labels = [];
-var chartdata = [];
+
 socket = io.connect();
 
 socket.on('newresults', function(data){
@@ -21,9 +20,11 @@ $('#spndata').text(JSON.stringify(data.rooms));
     setTimeout(requestData, 3000);
 }
  
- setTimeout(requestData, 3000);    
+ //setTimeout(requestData, 3000);    
 
 $(document).ready(function(){
+    var labels = [];
+var chartdata = [];
 var totalVotesInRooms = "Total Votes All Rooms";
 var dps = $.parseJSON($('#spndata').text());
 $.each(dps.rows,function(i,item){
